@@ -41,76 +41,80 @@ class _RecognitionScreenState extends State<RecognitionScreen> {
               if (state is RecognitionFailure) {
                 return Text('error:${state.message}');
               }
-              return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Spacer(),
-                    Container(
-                      height: 350.h,
-                      decoration: AppStyle.contanierDecoration,
-                      child: takedImage == null
-                          ? SizedBox(
-                              height: 350.h,
-                              width: double.infinity,
-                              child: IconButton(
-                                  onPressed: () async {
-                                    takedImage = await recognitionCubit
-                                        .pickImage(source: ImageSource.camera);
+              return SingleChildScrollView(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 35.h,
+                      ),
+                      Container(
+                        height: 350.h,
+                        decoration: AppStyle.contanierDecoration,
+                        child: takedImage == null
+                            ? SizedBox(
+                                height: 350.h,
+                                width: double.infinity,
+                                child: IconButton(
+                                    onPressed: () async {
+                                      takedImage =
+                                          await recognitionCubit.pickImage(
+                                              source: ImageSource.camera);
 
-                                    text =
-                                        await recognitionCubit.recognitionText(
-                                            File(takedImage!.path));
-                                  },
-                                  icon: const Icon(
-                                    Icons.add_a_photo,
-                                    size: 50,
-                                  )),
-                            )
-                          : Container(
-                              height: 350.h,
-                              width: double.infinity,
-                              decoration: AppStyle.contanierDecoration,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20.r),
-                                child: Image.file(
-                                  File(takedImage!.path),
-                                  fit: BoxFit.fill,
+                                      text = await recognitionCubit
+                                          .recognitionText(
+                                              File(takedImage!.path));
+                                    },
+                                    icon: const Icon(
+                                      Icons.add_a_photo,
+                                      size: 50,
+                                    )),
+                              )
+                            : Container(
+                                height: 350.h,
+                                width: double.infinity,
+                                decoration: AppStyle.contanierDecoration,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  child: Image.file(
+                                    File(takedImage!.path),
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
-                            ),
-                    ),
-                    SizedBox(
-                      height: 50.h,
-                    ),
-                    DefaultButton(
-                      textButton: 'Take image from camera',
-                      onPressed: () async {
-                        takedImage = await recognitionCubit.pickImage(
-                            source: ImageSource.camera);
+                      ),
+                      SizedBox(
+                        height: 50.h,
+                      ),
+                      DefaultButton(
+                        textButton: 'Take image from camera',
+                        onPressed: () async {
+                          takedImage = await recognitionCubit.pickImage(
+                              source: ImageSource.camera);
 
-                        text = await recognitionCubit
-                            .recognitionText(File(takedImage!.path));
-                      },
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    DefaultButton(
-                      textButton: 'Upload image from gallery',
-                      onPressed: () async {
-                        takedImage = await recognitionCubit.pickImage(
-                            source: ImageSource.gallery);
+                          text = await recognitionCubit
+                              .recognitionText(File(takedImage!.path));
+                        },
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      DefaultButton(
+                        textButton: 'Upload image from gallery',
+                        onPressed: () async {
+                          takedImage = await recognitionCubit.pickImage(
+                              source: ImageSource.gallery);
 
-                        text = await recognitionCubit
-                            .recognitionText(File(takedImage!.path));
-                      },
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    SelectableText(text ?? '', style: AppStyle.style16),
-                    const Spacer(),
-                  ]);
+                          text = await recognitionCubit
+                              .recognitionText(File(takedImage!.path));
+                        },
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      SelectableText(text ?? '', style: AppStyle.style16),
+                    ]),
+              );
             },
           ),
         ),
