@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iamge_to_text/core/style.dart';
 import 'package:iamge_to_text/features/recognition/presentation/cubit/recognition_cubit.dart';
 import 'package:iamge_to_text/features/recognition/presentation/widgets/default_button.dart';
@@ -30,7 +31,7 @@ class _RecognitionScreenState extends State<RecognitionScreen> {
         width: double.infinity,
         decoration: AppStyle.backgroundDecoration,
         child: Padding(
-          padding: const EdgeInsets.all(25.0),
+          padding: EdgeInsets.all(25.r),
           child: BlocBuilder<RecognitionCubit, RecognitionState>(
             bloc: recognitionCubit,
             builder: (context, state) {
@@ -45,11 +46,11 @@ class _RecognitionScreenState extends State<RecognitionScreen> {
                   children: [
                     const Spacer(),
                     Container(
-                      height: 350,
+                      height: 350.h,
                       decoration: AppStyle.contanierDecoration,
                       child: takedImage == null
                           ? SizedBox(
-                              height: 350,
+                              height: 350.h,
                               width: double.infinity,
                               child: IconButton(
                                   onPressed: () async {
@@ -66,11 +67,11 @@ class _RecognitionScreenState extends State<RecognitionScreen> {
                                   )),
                             )
                           : Container(
-                              height: 350,
+                              height: 350.h,
                               width: double.infinity,
                               decoration: AppStyle.contanierDecoration,
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(20.r),
                                 child: Image.file(
                                   File(takedImage!.path),
                                   fit: BoxFit.fill,
@@ -78,8 +79,8 @@ class _RecognitionScreenState extends State<RecognitionScreen> {
                               ),
                             ),
                     ),
-                    const SizedBox(
-                      height: 50,
+                    SizedBox(
+                      height: 50.h,
                     ),
                     DefaultButton(
                       textButton: 'Take image from camera',
@@ -91,8 +92,8 @@ class _RecognitionScreenState extends State<RecognitionScreen> {
                             .recognitionText(File(takedImage!.path));
                       },
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     DefaultButton(
                       textButton: 'Upload image from gallery',
@@ -104,8 +105,8 @@ class _RecognitionScreenState extends State<RecognitionScreen> {
                             .recognitionText(File(takedImage!.path));
                       },
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                     SelectableText(text ?? '', style: AppStyle.style16),
                     const Spacer(),
